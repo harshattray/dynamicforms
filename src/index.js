@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T13:58:38+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-13T17:02:04+05:30
+ * @Last modified time: 2018-09-13T23:00:41+05:30
  */
 
 import React from 'react';
@@ -14,18 +14,7 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 import './index.css';
 import App from './App';
-
-// const composeEnhancers =
-// 	typeof window !== 'undefined' ||
-// 	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
-// 	compose;
-
-const Initial_state = [];
-
-// const enhancer = composeEnhancers(
-// 	applyMiddleware(thunk)
-// 	// other store enhancers if any
-// );
+import 'semantic-ui-css/semantic.min.css';
 
 const store = createStore(
 	reducers,

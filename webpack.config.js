@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T15:35:47+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-13T16:48:46+05:30
+ * @Last modified time: 2018-09-13T22:55:27+05:30
  */
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
@@ -32,6 +32,10 @@ var config = {
 					require.resolve('style-loader'),
 					require.resolve('css-loader')
 				]
+			},
+			{
+				test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+				use: ['url-loader?limit=100000']
 			}
 		]
 	},
