@@ -1,0 +1,42 @@
+{
+	"name": "dynamicforms",
+	"version": "0.1.0",
+	"private": true,
+	"author": "Harsha Attray",
+	"dependencies": {
+		"axios": "0.16.2",
+		"babel-preset-env": "^1.7.0",
+		"lodash": "4.17.4",
+		"react": "16.0.0",
+		"react-dom": "16.0.0",
+		"react-helmet": "5.2.0",
+		"react-redux": "5.0.6",
+		"react-router-config": "1.0.0-beta.4",
+		"react-router-dom": "4.2.2",
+		"redux": "3.7.2",
+		"redux-thunk": "2.2.0"
+	},
+	"main": ".src/index.js",
+	"scripts": {
+		"clean": "rm -rf deploy",
+		"build": "npm run clean && webpack -p --env production",
+		"start": "webpack-dev-server --hot --inline --port 3000",
+		"commit_deploy": "git add deploy -A && git commit -m \"deploy files at `date`\" -n > /dev/null 2>&1; exit 0",
+		"ghpages": "git subtree split --prefix deploy/ -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages",
+		"deploy": "npm run build && npm run commit_deploy && npm run ghpages"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.0.0",
+		"@babel/core": "^7.0.1",
+		"@babel/node": "^7.0.0",
+		"@babel/preset-env": "^7.0.0",
+		"@babel/preset-react": "^7.0.0",
+		"@babel/preset-stage-0": "^7.0.0",
+		"babel-loader": "^8.0.0-beta.6",
+		"css-loader": "^1.0.0",
+		"html-webpack-plugin": "^2.24.1",
+		"style-loader": "^0.13.2",
+		"webpack": "3.5.6",
+		"webpack-dev-server": "2.8.2"
+	}
+}
