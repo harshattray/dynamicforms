@@ -2,10 +2,12 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T15:25:12+05:30
+ * @Last modified time: 2018-09-14T15:42:14+05:30
  */
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
 
 const options = [
@@ -15,6 +17,8 @@ const options = [
 
 class SubmitDynamicForms extends Component {
   state = {};
+
+  componentDidMount() {}
 
   handleChange = (e, { value }) => this.setState({ value });
 
@@ -30,6 +34,17 @@ class SubmitDynamicForms extends Component {
       <div>
         <Form.Input label={label} placeholder={placeholder} />
       </div>
+    );
+  }
+
+  renderDropdown({ label, placeholder, name, options }) {
+    return (
+      <Form.Select
+        fluid
+        label={label}
+        options={options}
+        placeholder={placeholder}
+      />
     );
   }
 
@@ -88,6 +103,13 @@ class SubmitDynamicForms extends Component {
       </Form>
     );
   }
+}
+function mapStateToProps({ form }) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return;
 }
 
 SubmitDynamicForms = reduxForm({
