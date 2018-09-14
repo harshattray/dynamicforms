@@ -2,24 +2,22 @@
  * @Author: harsha
  * @Date:   2018-09-13T13:58:38+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T14:23:08+05:30
+ * @Last modified time: 2018-09-14T15:12:09+05:30
  */
 
 import React, { Component } from "react";
 import "./App.css";
-import MenuExampleSizeTiny from "./components/HomePageComponent/HomePageComponent.js";
+import FormExampleSubcomponentControl from "./components/DynamicForms/DynamicForms";
+import { reduxForm, Field } from "redux-form";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Dynamic Forms</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <MenuExampleSizeTiny />
+        <FormExampleSubcomponentControl />
       </div>
     );
   }
