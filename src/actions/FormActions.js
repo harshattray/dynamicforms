@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T16:01:27+05:30
+ * @Last modified time: 2018-09-14T17:10:29+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -10,8 +10,8 @@ import {
   FETCH_DROPDOWN_VALUES_SUCCESS,
   FETCH_DROPDOWN_VALUES_ERROR
 } from "./types";
-
 import qs from "qs";
+import axios from "axios";
 
 const config = {
   headers: { "content-type": "application/x-www-form-urlencoded" }
@@ -22,10 +22,11 @@ const config = {
  * @return {[Object]} [dropdown data response from MockyApi]
  */
 
-export const fetchDropdownValues = () => async (dispatch, getState, api) => {
+export const fetchDropdownValues = () => async (dispatch, getState) => {
+  console.log("function accessed here");
   try {
-    const res = await api.get(
-      "http://www.mocky.io/v2/5b9b8c763000001000e7c4d1"
+    const res = await axios.get(
+      "http://www.mocky.io/v2/5b9b9e033000007100e7c553"
     );
     dispatch({
       type: FETCH_DROPDOWN_VALUES,
@@ -33,9 +34,10 @@ export const fetchDropdownValues = () => async (dispatch, getState, api) => {
       isFetchingDropdownValues: false
     });
   } catch (e) {
+    console.log(e, "error object");
     dispatch({
       type: FETCH_DROPDOWN_VALUES_ERROR,
-      payload: error
+      payload: e
     });
   }
 };

@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T16:02:38+05:30
+ * @Last modified time: 2018-09-14T16:23:45+05:30
  */
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
@@ -10,6 +10,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
 import { fetchDropdownValues } from "../../actions/FormActions";
+
+console.log(fetchDropdownValues, "function");
 
 const options = [
   { key: "m", text: "Male", value: "male" },
@@ -19,7 +21,9 @@ const options = [
 class SubmitDynamicForms extends Component {
   state = {};
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchDropdownValues();
+  }
 
   handleChange = (e, { value }) => this.setState({ value });
 
@@ -105,12 +109,13 @@ class SubmitDynamicForms extends Component {
     );
   }
 }
-function mapStateToProps({ form }) {
+function mapStateToProps({ dropDownValues, form }) {
+  console.log(dropDownValues, "dropDownValues");
   return {};
 }
 
 function mapDispatchToProps(dispatch) {
-  return;
+  return bindActionCreators({ fetchDropdownValues }, dispatch);
 }
 
 SubmitDynamicForms = reduxForm({
@@ -119,4 +124,4 @@ SubmitDynamicForms = reduxForm({
   fields: ["email"]
 })(SubmitDynamicForms);
 
-export default SubmitDynamicForms;
+export default connect(mapStateToProps, mapDispatchToProps)(SubmitDynamicForms);

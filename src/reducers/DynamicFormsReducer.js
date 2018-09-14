@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T16:03:13+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T16:15:10+05:30
+ * @Last modified time: 2018-09-14T17:11:25+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -35,5 +35,7 @@ export default (state = initial_state, action) => {
         userDropDownData: action.payload.data,
         isFetchingDropdownValues: action.isFetchingDropdownValues
       };
+    default:
+      return state;
   }
 };

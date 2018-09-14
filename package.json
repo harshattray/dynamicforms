@@ -5,6 +5,7 @@
 	"author": "Harsha Attray",
 	"dependencies": {
 		"axios": "0.16.2",
+		"babel-polyfill": "^6.26.0",
 		"babel-preset-env": "^1.7.0",
 		"lodash": "^4.17.4",
 		"react": "16.0.0",
