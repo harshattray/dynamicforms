@@ -2,13 +2,14 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T15:42:14+05:30
+ * @Last modified time: 2018-09-14T16:02:38+05:30
  */
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
+import { fetchDropdownValues } from "../../actions/FormActions";
 
 const options = [
   { key: "m", text: "Male", value: "male" },

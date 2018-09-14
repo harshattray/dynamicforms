@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T15:58:21+05:30
+ * @Last modified time: 2018-09-14T16:01:27+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -19,7 +19,7 @@ const config = {
 
 /**
  * [fetchDropdownValues Fetching Dropdown Data]
- * @return {[Object]} [dropdown data response from MockApi]
+ * @return {[Object]} [dropdown data response from MockyApi]
  */
 
 export const fetchDropdownValues = () => async (dispatch, getState, api) => {
@@ -39,6 +39,11 @@ export const fetchDropdownValues = () => async (dispatch, getState, api) => {
     });
   }
 };
+
+/**
+ * [initDropDownValuesFetch initiator action dispatch function]
+ * @return {[Object]} [description]
+ */
 
 function initDropDownValuesFetch() {
   dispatch({
