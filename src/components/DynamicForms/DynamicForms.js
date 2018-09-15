@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T00:45:39+05:30
+ * @Last modified time: 2018-09-16T01:57:37+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader } from "semantic-ui-react";
@@ -104,6 +104,40 @@ class SubmitDynamicForms extends Component {
   }
 
   /**
+   * [renderMultiSelect multiSelectData handler]
+   * @param  {[type]} name        [description]
+   * @param  {[type]} options     [description]
+   * @param  {[type]} placeholder [description]
+   * @param  {[type]} input       [description]
+   * @param  {[type]} onChange    [description]
+   * @param  {[type]} input       [description]
+   * @return {[type]}             [description]
+   */
+
+  renderMultiSelect({
+    name,
+    options,
+    placeholder,
+    input: { value, onChange, ...input }
+  }) {
+    function handleMultiSelect(e, { value }) {
+      return onChange(value);
+    }
+    return (
+      <Form.Dropdown
+        name={name}
+        placeholder={placeholder}
+        fluid
+        multiple
+        selection
+        options={options}
+        onChange={handleMultiSelect}
+        {...input}
+      />
+    );
+  }
+
+  /**
    * [handleSignUpSubmit Form submit handler]
    * @param  {[type]} data [description]
    * @return {[type]}      [description]
@@ -116,9 +150,11 @@ class SubmitDynamicForms extends Component {
     const { value } = this.state;
     const {
       dropdowndata,
+      multiSelectData,
       loadingData,
       handleSubmit,
-      showMoreFields
+      showMoreFields,
+      showMultiSelect
     } = this.props;
 
     return (
@@ -186,6 +222,13 @@ class SubmitDynamicForms extends Component {
           label="Click here if you reside in India"
           showMoreFields={showMoreFields}
         />
+        <Field
+          name="userMultiSelect"
+          component={this.renderMultiSelect}
+          label="select state"
+          placeholder="Please Select State"
+          options={multiSelectData}
+        />
         <Form.Button>Submit</Form.Button>
       </Form>
     );
@@ -194,7 +237,9 @@ class SubmitDynamicForms extends Component {
 function mapStateToProps({ dropDownValues, form }) {
   return {
     dropdowndata: dropDownValues.userDropDownData,
-    loadingData: dropDownValues.isFetchingDropdownValues
+    multiSelectData: dropDownValues.userMultiSelectData,
+    loadingData: dropDownValues.isFetchingDropdownValues,
+    showMultiSelect: dropDownValues.showMultiSelect
   };
 }
 

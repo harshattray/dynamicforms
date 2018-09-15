@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T16:03:13+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T00:48:16+05:30
+ * @Last modified time: 2018-09-16T01:21:56+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -35,6 +35,7 @@ export default (state = initial_state, action) => {
       return {
         ...state,
         userDropDownData: action.payload.data[0].gender,
+        userMultiSelectData: action.payload.data[0].states,
         isFetchingDropdownValues: action.isFetchingDropdownValues
       };
     case SHOW_MORE_FIELDS:
