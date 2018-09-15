@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T01:57:37+05:30
+ * @Last modified time: 2018-09-16T03:02:14+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader } from "semantic-ui-react";
@@ -118,6 +118,7 @@ class SubmitDynamicForms extends Component {
     name,
     options,
     placeholder,
+    search,
     input: { value, onChange, ...input }
   }) {
     function handleMultiSelect(e, { value }) {
@@ -137,6 +138,30 @@ class SubmitDynamicForms extends Component {
     );
   }
 
+  renderSearchableMultiSelect({
+    name,
+    options,
+    placeholder,
+    input: { value, onChange, ...input }
+  }) {
+    function handleSearchableMultiSelect(e, data) {
+      return onChange(data.value) || input.onChange(value);
+    }
+    return (
+      <Form.Dropdown
+        name={name}
+        placeholder={placeholder}
+        fluid
+        search
+        multiple
+        selection
+        options={options}
+        onChange={handleSearchableMultiSelect}
+        {...input}
+      />
+    );
+  }
+
   /**
    * [handleSignUpSubmit Form submit handler]
    * @param  {[type]} data [description]
@@ -151,6 +176,7 @@ class SubmitDynamicForms extends Component {
     const {
       dropdowndata,
       multiSelectData,
+      searchableMultiselect,
       loadingData,
       handleSubmit,
       showMoreFields,
@@ -222,13 +248,27 @@ class SubmitDynamicForms extends Component {
           label="Click here if you reside in India"
           showMoreFields={showMoreFields}
         />
-        <Field
-          name="userMultiSelect"
-          component={this.renderMultiSelect}
-          label="select state"
-          placeholder="Please Select State"
-          options={multiSelectData}
-        />
+        {showMultiSelect && (
+          <div>
+            <Field
+              name="userMultiSelect"
+              component={this.renderMultiSelect}
+              label="select state"
+              enable="false"
+              placeholder="Please Select State"
+              options={multiSelectData}
+            />
+            <Field
+              name="userSearchableMultiSelect"
+              component={this.renderSearchableMultiSelect}
+              label="select language"
+              enable="true"
+              placeholder="Please Select Language"
+              search
+              options={searchableMultiselect}
+            />
+          </div>
+        )}
         <Form.Button>Submit</Form.Button>
       </Form>
     );
@@ -238,6 +278,7 @@ function mapStateToProps({ dropDownValues, form }) {
   return {
     dropdowndata: dropDownValues.userDropDownData,
     multiSelectData: dropDownValues.userMultiSelectData,
+    searchableMultiselect: dropDownValues.userSearchableMultiselect,
     loadingData: dropDownValues.isFetchingDropdownValues,
     showMultiSelect: dropDownValues.showMultiSelect
   };
