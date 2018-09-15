@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T17:10:29+05:30
+ * @Last modified time: 2018-09-15T22:35:46+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -23,10 +23,10 @@ const config = {
  */
 
 export const fetchDropdownValues = () => async (dispatch, getState) => {
-  console.log("function accessed here");
+  dispatch(initDropDownValuesFetch());
   try {
     const res = await axios.get(
-      "http://www.mocky.io/v2/5b9b9e033000007100e7c553"
+      "http://www.mocky.io/v2/5b9d3bc73200006900db938d"
     );
     dispatch({
       type: FETCH_DROPDOWN_VALUES,
@@ -48,8 +48,8 @@ export const fetchDropdownValues = () => async (dispatch, getState) => {
  */
 
 function initDropDownValuesFetch() {
-  dispatch({
+  return {
     type: FETCH_DROPDOWN_VALUES_INIT,
     isFetchingDropdownValues: true
-  });
+  };
 }

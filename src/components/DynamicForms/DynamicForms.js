@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T16:23:45+05:30
+ * @Last modified time: 2018-09-15T23:05:26+05:30
  */
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
@@ -10,13 +10,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
 import { fetchDropdownValues } from "../../actions/FormActions";
-
-console.log(fetchDropdownValues, "function");
-
-const options = [
-  { key: "m", text: "Male", value: "male" },
-  { key: "f", text: "Female", value: "female" }
-];
 
 class SubmitDynamicForms extends Component {
   state = {};
@@ -34,15 +27,29 @@ class SubmitDynamicForms extends Component {
    * @param  {String} name        [Input Name]
    * @return {Object}             [Input params Object]
    */
-  renderFields({ label, placeholder, name }) {
+  renderFields({ label, placeholder, name, input }) {
     return (
       <div>
-        <Form.Input label={label} placeholder={placeholder} />
+        <Form.Input label={label} placeholder={placeholder} {...input} />
       </div>
     );
   }
 
-  renderDropdown({ label, placeholder, name, options }) {
+  /**
+   * [renderDropdown Dropdown select handler]
+   * @param  {[type]} label       [description]
+   * @param  {[type]} placeholder [description]
+   * @param  {[type]} name        [description]
+   * @param  {[type]} options     [description]
+   * @param  {[type]} input       [description]
+   * @return {[type]}             [description]
+   */
+
+  renderDropdown({ label, placeholder, name, options, input }) {
+    console.log(input.value, "field value");
+    if (!options) {
+      return <Form loading />;
+    }
     return (
       <Form.Select
         fluid
@@ -53,10 +60,25 @@ class SubmitDynamicForms extends Component {
     );
   }
 
+  /**
+   * [handleSignUpSubmit Form submit handler]
+   * @param  {[type]} data [description]
+   * @return {[type]}      [description]
+   */
+  handleSignUpSubmit = data => {
+    console.log(data, "SignUpFormData");
+  };
+
   render() {
     const { value } = this.state;
+    const { dropdowndata, loadingData, handleSubmit } = this.props;
+
     return (
-      <Form name="userDataForm">
+      <Form
+        name="userDataForm"
+        onSubmit={handleSubmit(this.handleSignUpSubmit)}
+        noValidate
+      >
         <Form.Group widths="equal">
           <Field
             name="userFirstName"
@@ -76,9 +98,8 @@ class SubmitDynamicForms extends Component {
             name="userGender"
             component={this.renderDropdown}
             placeholder="Select Gender"
-            required
             label="Gender"
-            options={options}
+            options={dropdowndata}
           />
         </Form.Group>
         <Form.Group inline>
@@ -110,8 +131,10 @@ class SubmitDynamicForms extends Component {
   }
 }
 function mapStateToProps({ dropDownValues, form }) {
-  console.log(dropDownValues, "dropDownValues");
-  return {};
+  return {
+    dropdowndata: dropDownValues.userDropDownData,
+    loadingData: dropDownValues.isFetchingDropdownValues
+  };
 }
 
 function mapDispatchToProps(dispatch) {

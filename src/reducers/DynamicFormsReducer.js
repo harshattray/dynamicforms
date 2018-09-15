@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T16:03:13+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-14T17:11:25+05:30
+ * @Last modified time: 2018-09-15T17:11:34+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -32,7 +32,7 @@ export default (state = initial_state, action) => {
     case FETCH_DROPDOWN_VALUES:
       return {
         ...state,
-        userDropDownData: action.payload.data,
+        userDropDownData: action.payload.data[0].gender,
         isFetchingDropdownValues: action.isFetchingDropdownValues
       };
     default:
