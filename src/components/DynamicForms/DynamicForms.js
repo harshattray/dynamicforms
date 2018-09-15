@@ -2,14 +2,14 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T00:18:22+05:30
+ * @Last modified time: 2018-09-16T00:45:39+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
-import { fetchDropdownValues } from "../../actions/FormActions";
+import { fetchDropdownValues, showMoreFields } from "../../actions/FormActions";
 
 class SubmitDynamicForms extends Component {
   state = {};
@@ -83,13 +83,22 @@ class SubmitDynamicForms extends Component {
    * @return {[type]}          [description]
    */
 
-  renderCheckBox({ name, label, input: { value, onChange, ...input } }) {
+  renderCheckBox({
+    name,
+    label,
+    input: { value, onChange, ...input },
+    showMoreFields
+  }) {
+    function showMoreDispatcher(data) {
+      showMoreFields(data);
+      return onChange(data);
+    }
     return (
       <Form.Checkbox
         label={label}
         {...input}
         defaultChecked={!!value}
-        onChange={(e, data) => onChange(data.checked)}
+        onChange={(e, data) => showMoreDispatcher(data.checked)}
       />
     );
   }
@@ -105,7 +114,12 @@ class SubmitDynamicForms extends Component {
 
   render() {
     const { value } = this.state;
-    const { dropdowndata, loadingData, handleSubmit } = this.props;
+    const {
+      dropdowndata,
+      loadingData,
+      handleSubmit,
+      showMoreFields
+    } = this.props;
 
     return (
       <Form
@@ -170,6 +184,7 @@ class SubmitDynamicForms extends Component {
           name="userCheckBox"
           component={this.renderCheckBox}
           label="Click here if you reside in India"
+          showMoreFields={showMoreFields}
         />
         <Form.Button>Submit</Form.Button>
       </Form>
@@ -184,7 +199,7 @@ function mapStateToProps({ dropDownValues, form }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchDropdownValues }, dispatch);
+  return bindActionCreators({ fetchDropdownValues, showMoreFields }, dispatch);
 }
 
 SubmitDynamicForms = reduxForm({

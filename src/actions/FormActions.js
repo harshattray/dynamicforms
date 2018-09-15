@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T00:13:59+05:30
+ * @Last modified time: 2018-09-16T00:46:37+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -56,8 +56,9 @@ function initDropDownValuesFetch() {
 }
 
 export const showMoreFields = value => dispatch => {
+  console.log(value, "checkbox");
   dispatch({
     type: SHOW_MORE_FIELDS,
-    show_multi_select: !value
+    showMultiSelect: value
   });
 };
