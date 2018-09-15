@@ -2,13 +2,14 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-15T22:35:46+05:30
+ * @Last modified time: 2018-09-16T00:13:59+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
   FETCH_DROPDOWN_VALUES_INIT,
   FETCH_DROPDOWN_VALUES_SUCCESS,
-  FETCH_DROPDOWN_VALUES_ERROR
+  FETCH_DROPDOWN_VALUES_ERROR,
+  SHOW_MORE_FIELDS
 } from "./types";
 import qs from "qs";
 import axios from "axios";
@@ -53,3 +54,10 @@ function initDropDownValuesFetch() {
     isFetchingDropdownValues: true
   };
 }
+
+export const showMoreFields = value => dispatch => {
+  dispatch({
+    type: SHOW_MORE_FIELDS,
+    show_multi_select: !value
+  });
+};

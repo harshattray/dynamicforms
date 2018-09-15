@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-15T23:47:03+05:30
+ * @Last modified time: 2018-09-16T00:18:22+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader } from "semantic-ui-react";
@@ -69,6 +69,27 @@ class SubmitDynamicForms extends Component {
         placeholder={placeholder}
         {...input}
         onChange={handleSelect}
+      />
+    );
+  }
+
+  /**
+   * [renderCheckBox checbox handler and dispatcher]
+   * @param  {[type]} name     [description]
+   * @param  {[type]} label    [description]
+   * @param  {[type]} input    [description]
+   * @param  {[type]} onChange [description]
+   * @param  {[type]} input    [description]
+   * @return {[type]}          [description]
+   */
+
+  renderCheckBox({ name, label, input: { value, onChange, ...input } }) {
+    return (
+      <Form.Checkbox
+        label={label}
+        {...input}
+        defaultChecked={!!value}
+        onChange={(e, data) => onChange(data.checked)}
       />
     );
   }
@@ -145,7 +166,11 @@ class SubmitDynamicForms extends Component {
           placeholder="Tell us more about you..."
           label="About"
         />
-        <Form.Checkbox label="I agree to the Terms and Conditions" />
+        <Field
+          name="userCheckBox"
+          component={this.renderCheckBox}
+          label="Click here if you reside in India"
+        />
         <Form.Button>Submit</Form.Button>
       </Form>
     );
