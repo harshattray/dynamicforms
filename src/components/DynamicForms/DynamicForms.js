@@ -2,10 +2,10 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-15T23:05:26+05:30
+ * @Last modified time: 2018-09-15T23:47:03+05:30
  */
 import React, { Component } from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Loader } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
@@ -27,10 +27,19 @@ class SubmitDynamicForms extends Component {
    * @param  {String} name        [Input Name]
    * @return {Object}             [Input params Object]
    */
-  renderFields({ label, placeholder, name, input }) {
+  renderFields({ label, placeholder, name, input, textarea, textField }) {
     return (
       <div>
-        <Form.Input label={label} placeholder={placeholder} {...input} />
+        {textField && (
+          <Form.Input label={label} placeholder={placeholder} {...input} />
+        )}
+        {textarea && (
+          <Form.TextArea
+            label="About"
+            placeholder="Tell us more about you..."
+            {...input}
+          />
+        )}
       </div>
     );
   }
@@ -46,9 +55,11 @@ class SubmitDynamicForms extends Component {
    */
 
   renderDropdown({ label, placeholder, name, options, input }) {
-    console.log(input.value, "field value");
+    function handleSelect(e, { value }) {
+      return input.onChange(value);
+    }
     if (!options) {
-      return <Form loading />;
+      return <Loader inline active />;
     }
     return (
       <Form.Select
@@ -56,6 +67,8 @@ class SubmitDynamicForms extends Component {
         label={label}
         options={options}
         placeholder={placeholder}
+        {...input}
+        onChange={handleSelect}
       />
     );
   }
@@ -86,6 +99,7 @@ class SubmitDynamicForms extends Component {
             placeholder="First Name"
             required
             label="First Name"
+            textField="true"
           />
           <Field
             name="userLastName"
@@ -93,6 +107,7 @@ class SubmitDynamicForms extends Component {
             placeholder="Last Name"
             required
             label="Last Name"
+            textField="true"
           />
           <Field
             name="userGender"
@@ -123,7 +138,13 @@ class SubmitDynamicForms extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-        <Form.TextArea label="About" placeholder="Tell us more about you..." />
+        <Field
+          name="userTextArea"
+          textarea="true"
+          component={this.renderFields}
+          placeholder="Tell us more about you..."
+          label="About"
+        />
         <Form.Checkbox label="I agree to the Terms and Conditions" />
         <Form.Button>Submit</Form.Button>
       </Form>
