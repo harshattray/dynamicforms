@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T18:48:18+05:30
+ * @Last modified time: 2018-09-16T18:53:42+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader, Message } from "semantic-ui-react";
@@ -20,6 +20,7 @@ import { renderMultiSelect } from "../MultiselectComponent/MultiselectComponent"
 import { renderSearchableMultiSelect } from "../SearchableMultiSelect/SearchableMultiselectComponent";
 import { renderCheckBox } from "../renderCheckboxComponent/renderCheckBoxComponent";
 import { renderDropdown } from "../renderDropdownComponent/renderDropdownComponent";
+import { renderFields } from "../renderFieldsComponent/renderFieldsComponents";
 import { validate } from "../validate";
 
 class SubmitDynamicForms extends Component {
@@ -27,59 +28,6 @@ class SubmitDynamicForms extends Component {
 
   componentDidMount() {
     this.props.fetchDropdownValues();
-  }
-
-  /**
-   * [renderFields renders input Fields and takes in relevant values]
-   * @param  {String} label       [Input label]
-   * @param  {String} placeholder [Imput placeholder]
-   * @param  {String} name        [Input Name]
-   * @return {Object}             [Input params Object]
-   */
-  renderFields({
-    label,
-    type,
-    placeholder,
-    name,
-    input,
-    textarea,
-    textField,
-    MobileField,
-    maxlength,
-    pattern,
-    meta: { touched, error, warning }
-  }) {
-    console.log(error, "error object");
-    return (
-      <div>
-        {textField && (
-          <Form.Input
-            type={type}
-            label={label}
-            placeholder={placeholder}
-            {...input}
-          />
-        )}
-        {textarea && (
-          <Form.TextArea
-            label="About"
-            placeholder="Tell us more about you..."
-            {...input}
-          />
-        )}
-        {MobileField && (
-          <Form.Input
-            type={type}
-            label={label}
-            placeholder={placeholder}
-            maxLength={maxlength}
-            pattern={pattern}
-            {...input}
-          />
-        )}
-        {touched && error && <i>{error}</i>}
-      </div>
-    );
   }
 
   /**
@@ -114,7 +62,7 @@ class SubmitDynamicForms extends Component {
         <Form.Group widths="equal">
           <Field
             name="userFirstName"
-            component={this.renderFields}
+            component={renderFields}
             placeholder="First Name"
             required
             label="First Name"
@@ -122,7 +70,7 @@ class SubmitDynamicForms extends Component {
           />
           <Field
             name="userLastName"
-            component={this.renderFields}
+            component={renderFields}
             placeholder="Last Name"
             required
             label="Last Name"
@@ -131,7 +79,7 @@ class SubmitDynamicForms extends Component {
           <Field
             name="userSignUpEmail"
             type="email"
-            component={this.renderFields}
+            component={renderFields}
             placeholder="Email"
             required
             textField="true"
@@ -139,7 +87,7 @@ class SubmitDynamicForms extends Component {
           />
           <Field
             name="userSignUpMobile"
-            component={this.renderFields}
+            component={renderFields}
             placeholder="Mobile"
             MobileField="MobileField"
             maxlength={10}
@@ -160,7 +108,7 @@ class SubmitDynamicForms extends Component {
         <Field
           name="userTextArea"
           textarea="true"
-          component={this.renderFields}
+          component={renderFields}
           placeholder="Tell us more about you..."
           label="About"
         />
