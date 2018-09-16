@@ -2,8 +2,10 @@
  * @Author: harsha
  * @Date:   2018-09-16T18:00:15+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T18:00:27+05:30
+ * @Last modified time: 2018-09-16T20:27:59+05:30
  */
+import isValidEmail from "sane-email-validation";
+
 export const validate = values => {
   const errors = {};
   if (!values.userSignUpEmail) {

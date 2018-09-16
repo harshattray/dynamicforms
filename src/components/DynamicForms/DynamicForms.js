@@ -2,19 +2,18 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T18:53:42+05:30
+ * @Last modified time: 2018-09-16T20:30:22+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader, Message } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { reduxForm, Field, formValueSelector } from "redux-form";
+import { reduxForm, Field, formValueSelector, reset } from "redux-form";
 import {
   fetchDropdownValues,
   showMoreFields,
   submitFormData
 } from "../../actions/FormActions";
-import isValidEmail from "sane-email-validation";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { renderMultiSelect } from "../MultiselectComponent/MultiselectComponent";
 import { renderSearchableMultiSelect } from "../SearchableMultiSelect/SearchableMultiselectComponent";
@@ -165,11 +164,14 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
+const afterSubmit = (result, dispatch) => dispatch(reset("userDataForm"));
+
 SubmitDynamicForms = reduxForm({
   validate,
   form: "userDataForm",
   destroyOnUnmount: false,
-  fields: ["email"]
+  fields: ["email"],
+  onSubmitSuccess: afterSubmit
 })(SubmitDynamicForms);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmitDynamicForms);
