@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-16T18:52:03+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T20:27:45+05:30
+ * @Last modified time: 2018-09-16T21:51:01+05:30
  */
 
 import React from "react";
@@ -20,12 +20,13 @@ export const renderFields = ({
   type,
   placeholder,
   name,
-  input,
+  input: { value: omitValue, ...input },
   textarea,
   textField,
   MobileField,
   maxlength,
   pattern,
+  uploadField,
   meta: { touched, error, warning }
 }) => {
   console.log(error, "error object");
@@ -56,6 +57,7 @@ export const renderFields = ({
           {...input}
         />
       )}
+      {uploadField && <Form.Input type={type} {...input} />}
       {touched && error && <i>{error}</i>}
     </div>
   );
