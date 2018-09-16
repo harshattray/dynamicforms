@@ -2,14 +2,30 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T11:29:08+05:30
+ * @Last modified time: 2018-09-16T15:49:29+05:30
  */
 import React, { Component } from "react";
-import { Form, Loader } from "semantic-ui-react";
+import { Form, Loader, Message } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
 import { fetchDropdownValues, showMoreFields } from "../../actions/FormActions";
+import isValidEmail from "sane-email-validation";
+
+const validate = values => {
+  const errors = {};
+  if (!values.userSignUpEmail) {
+    errors.userSignUpEmail = "Email is required";
+  } else if (!isValidEmail(values.userSignUpEmail)) {
+    errors.userSignUpEmail = "Enter a valid email";
+  }
+  if (!values.userSignUpMobile) {
+    errors.userSignUpMobile = "Mobile number is required";
+  } else if (!values.userSignUpMobile.match(/^[0-9]*$/)) {
+    errors.userSignUpMobile = "Mobile number is not valid";
+  }
+  return errors;
+};
 
 class SubmitDynamicForms extends Component {
   state = {};
@@ -33,8 +49,12 @@ class SubmitDynamicForms extends Component {
     input,
     textarea,
     textField,
-    MobileField
+    MobileField,
+    maxlength,
+    pattern,
+    meta: { touched, error, warning }
   }) {
+    console.log(error, "error object");
     return (
       <div>
         {textField && (
@@ -57,9 +77,12 @@ class SubmitDynamicForms extends Component {
             type={type}
             label={label}
             placeholder={placeholder}
+            maxLength={maxlength}
+            pattern={pattern}
             {...input}
           />
         )}
+        {touched && error && <i>{error}</i>}
       </div>
     );
   }
@@ -221,8 +244,12 @@ class SubmitDynamicForms extends Component {
       loadingData,
       handleSubmit,
       showMoreFields,
-      showMultiSelect
+      showMultiSelect,
+      invalid,
+      submitting
     } = this.props;
+
+    console.log(invalid, "validation");
 
     return (
       <Form
@@ -263,6 +290,8 @@ class SubmitDynamicForms extends Component {
             MobileField="MobileField"
             maxlength={10}
             label="Mobile"
+            pattern="[0-9]*"
+            type="tel"
             required
           />
           <Field
@@ -322,7 +351,9 @@ class SubmitDynamicForms extends Component {
             />
           </div>
         )}
-        <Form.Button>Submit</Form.Button>
+        <Form.Button disabled={invalid} loading={submitting}>
+          Submit
+        </Form.Button>
       </Form>
     );
   }
@@ -342,6 +373,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 SubmitDynamicForms = reduxForm({
+  validate,
   form: "userDataForm",
   destroyOnUnmount: false,
   fields: ["email"]
