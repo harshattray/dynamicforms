@@ -2,14 +2,15 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T00:46:37+05:30
+ * @Last modified time: 2018-09-16T16:15:00+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
   FETCH_DROPDOWN_VALUES_INIT,
   FETCH_DROPDOWN_VALUES_SUCCESS,
   FETCH_DROPDOWN_VALUES_ERROR,
-  SHOW_MORE_FIELDS
+  SHOW_MORE_FIELDS,
+  SUBMIT_FORM_DATA
 } from "./types";
 import qs from "qs";
 import axios from "axios";
@@ -60,5 +61,24 @@ export const showMoreFields = value => dispatch => {
   dispatch({
     type: SHOW_MORE_FIELDS,
     showMultiSelect: value
+  });
+};
+
+/**
+ * [submitFormData description]
+ * @param  {object} formData [form object]
+ * @return {[type]}          [description]
+ */
+
+export const submitFormData = formData => async (dispatch, getState, api) => {
+  const params = {
+    formData
+  };
+  const post_data = qs.stringify(params);
+  // const res = await api.post("MokyAPIcomes here", post_data, config);
+  dispatch({
+    type: SUBMIT_FORM_DATA,
+    submitSuccess: true,
+    submissionObject: formData
   });
 };

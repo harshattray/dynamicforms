@@ -2,19 +2,21 @@
  * @Author: harsha
  * @Date:   2018-09-14T16:03:13+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T02:06:31+05:30
+ * @Last modified time: 2018-09-16T17:27:53+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
   FETCH_DROPDOWN_VALUES_ERROR,
   FETCH_DROPDOWN_VALUES_INIT,
   FETCH_DROPDOWN_VALUES_SUCCESS,
-  SHOW_MORE_FIELDS
+  SHOW_MORE_FIELDS,
+  SUBMIT_FORM_DATA
 } from "../actions/types";
 
 const initial_state = {
   isFetchingDropdownValues: false,
-  showMultiSelect: false
+  showMultiSelect: false,
+  submitSuccess: false
 };
 
 /**
@@ -43,6 +45,12 @@ export default (state = initial_state, action) => {
       return {
         ...state,
         showMultiSelect: action.showMultiSelect
+      };
+    case SUBMIT_FORM_DATA:
+      return {
+        ...state,
+        showSubmissionData: action.submissionObject,
+        submitSuccess: action.submitSuccess
       };
     default:
       return state;

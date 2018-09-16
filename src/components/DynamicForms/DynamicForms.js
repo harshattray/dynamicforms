@@ -2,30 +2,25 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T15:49:29+05:30
+ * @Last modified time: 2018-09-16T18:48:18+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader, Message } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxForm, Field, formValueSelector } from "redux-form";
-import { fetchDropdownValues, showMoreFields } from "../../actions/FormActions";
+import {
+  fetchDropdownValues,
+  showMoreFields,
+  submitFormData
+} from "../../actions/FormActions";
 import isValidEmail from "sane-email-validation";
-
-const validate = values => {
-  const errors = {};
-  if (!values.userSignUpEmail) {
-    errors.userSignUpEmail = "Email is required";
-  } else if (!isValidEmail(values.userSignUpEmail)) {
-    errors.userSignUpEmail = "Enter a valid email";
-  }
-  if (!values.userSignUpMobile) {
-    errors.userSignUpMobile = "Mobile number is required";
-  } else if (!values.userSignUpMobile.match(/^[0-9]*$/)) {
-    errors.userSignUpMobile = "Mobile number is not valid";
-  }
-  return errors;
-};
+import { Button, Header, Icon, Modal } from "semantic-ui-react";
+import { renderMultiSelect } from "../MultiselectComponent/MultiselectComponent";
+import { renderSearchableMultiSelect } from "../SearchableMultiSelect/SearchableMultiselectComponent";
+import { renderCheckBox } from "../renderCheckboxComponent/renderCheckBoxComponent";
+import { renderDropdown } from "../renderDropdownComponent/renderDropdownComponent";
+import { validate } from "../validate";
 
 class SubmitDynamicForms extends Component {
   state = {};
@@ -88,151 +83,13 @@ class SubmitDynamicForms extends Component {
   }
 
   /**
-   * [renderDropdown Dropdown select handler]
-   * @param  {[type]} label       [description]
-   * @param  {[type]} placeholder [description]
-   * @param  {[type]} name        [description]
-   * @param  {[type]} options     [description]
-   * @param  {[type]} input       [description]
-   * @return {[type]}             [description]
-   */
-
-  renderDropdown({ label, placeholder, name, options, input }) {
-    function handleSelect(e, { value }) {
-      return input.onChange(value);
-    }
-    if (!options) {
-      return <Loader inline active />;
-    }
-    return (
-      <Form.Select
-        fluid
-        label={label}
-        options={options}
-        placeholder={placeholder}
-        {...input}
-        onChange={handleSelect}
-      />
-    );
-  }
-
-  /**
-   * [renderCheckBox checbox handler and dispatcher]
-   * @param  {[type]} name     [description]
-   * @param  {[type]} label    [description]
-   * @param  {[type]} input    [description]
-   * @param  {[type]} onChange [description]
-   * @param  {[type]} input    [description]
-   * @return {[type]}          [description]
-   */
-
-  renderCheckBox({
-    name,
-    label,
-    input: { value, onChange, ...input },
-    showMoreFields
-  }) {
-    function showMoreDispatcher(data) {
-      showMoreFields(data);
-      return onChange(data);
-    }
-    return (
-      <Form.Checkbox
-        label={label}
-        {...input}
-        defaultChecked={!!value}
-        onChange={(e, data) => showMoreDispatcher(data.checked)}
-      />
-    );
-  }
-
-  /**
-   * [renderMultiSelect multiSelectData handler]
-   * @param  {[type]} name        [description]
-   * @param  {[type]} options     [description]
-   * @param  {[type]} placeholder [description]
-   * @param  {[type]} input       [description]
-   * @param  {[type]} onChange    [description]
-   * @param  {[type]} input       [description]
-   * @return {[type]}             [description]
-   */
-
-  renderMultiSelect({
-    name,
-    options,
-    placeholder,
-    search,
-    input: { value, onChange, ...input }
-  }) {
-    function handleMultiSelect(e, { value }) {
-      return onChange(value);
-    }
-    return (
-      <Form.Dropdown
-        name={name}
-        placeholder={placeholder}
-        fluid
-        multiple
-        selection
-        options={options}
-        onChange={handleMultiSelect}
-        {...input}
-      />
-    );
-  }
-
-  renderSearchableMultiSelect({
-    name,
-    options,
-    placeholder,
-    input: { value, onChange, ...input }
-  }) {
-    function handleSearchableMultiSelect(e, data) {
-      return onChange(data.value) || input.onChange(value);
-    }
-    return (
-      <Form.Dropdown
-        name={name}
-        placeholder={placeholder}
-        fluid
-        search
-        multiple
-        selection
-        options={options}
-        onChange={handleSearchableMultiSelect}
-        {...input}
-      />
-    );
-  }
-
-  renderRadioBlock({
-    name,
-    label,
-    blockName,
-    input: { value, onChange, ...input }
-  }) {
-    function radioValues(value) {
-      return onChange(value);
-    }
-
-    return (
-      <div>
-        <Form.Radio
-          label={label}
-          {...input}
-          onChange={(e, { value }) => radioValues(value)}
-        />
-      </div>
-    );
-  }
-
-  /**
    * [handleSignUpSubmit Form submit handler]
    * @param  {[type]} data [description]
    * @return {[type]}      [description]
    */
   handleSignUpSubmit = data => {
     console.log(data, "SignUpFormData");
+    this.props.submitFormData(data);
   };
 
   render() {
@@ -248,9 +105,6 @@ class SubmitDynamicForms extends Component {
       invalid,
       submitting
     } = this.props;
-
-    console.log(invalid, "validation");
-
     return (
       <Form
         name="userDataForm"
@@ -296,27 +150,13 @@ class SubmitDynamicForms extends Component {
           />
           <Field
             name="userGender"
-            component={this.renderDropdown}
+            component={renderDropdown}
             placeholder="Select Gender"
             label="Gender"
             options={dropdowndata}
           />
         </Form.Group>
-        <Form.Group inline>
-          <label>Size</label>
-          <Field
-            name="userSizeOptions"
-            component={this.renderRadioBlock}
-            value="small"
-            label="Small"
-          />
-          <Field
-            name="userSizeOptions"
-            component={this.renderRadioBlock}
-            value="large"
-            label="large"
-          />
-        </Form.Group>
+
         <Field
           name="userTextArea"
           textarea="true"
@@ -326,7 +166,7 @@ class SubmitDynamicForms extends Component {
         />
         <Field
           name="userCheckBox"
-          component={this.renderCheckBox}
+          component={renderCheckBox}
           label="Click here if you reside in India"
           showMoreFields={showMoreFields}
         />
@@ -334,7 +174,7 @@ class SubmitDynamicForms extends Component {
           <div>
             <Field
               name="userMultiSelect"
-              component={this.renderMultiSelect}
+              component={renderMultiSelect}
               label="select state"
               enable="false"
               placeholder="Please Select State"
@@ -342,7 +182,7 @@ class SubmitDynamicForms extends Component {
             />
             <Field
               name="userSearchableMultiSelect"
-              component={this.renderSearchableMultiSelect}
+              component={renderSearchableMultiSelect}
               label="select language"
               enable="true"
               placeholder="Please Select Language"
@@ -364,12 +204,17 @@ function mapStateToProps({ dropDownValues, form }) {
     multiSelectData: dropDownValues.userMultiSelectData,
     searchableMultiselect: dropDownValues.userSearchableMultiselect,
     loadingData: dropDownValues.isFetchingDropdownValues,
-    showMultiSelect: dropDownValues.showMultiSelect
+    showMultiSelect: dropDownValues.showMultiSelect,
+    showuserSubmissionData: dropDownValues.showSubmissionData,
+    dataSubmitSuccess: dropDownValues.submitSuccess
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchDropdownValues, showMoreFields }, dispatch);
+  return bindActionCreators(
+    { fetchDropdownValues, showMoreFields, submitFormData },
+    dispatch
+  );
 }
 
 SubmitDynamicForms = reduxForm({
