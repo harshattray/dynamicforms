@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T03:02:14+05:30
+ * @Last modified time: 2018-09-16T11:29:08+05:30
  */
 import React, { Component } from "react";
 import { Form, Loader } from "semantic-ui-react";
@@ -18,8 +18,6 @@ class SubmitDynamicForms extends Component {
     this.props.fetchDropdownValues();
   }
 
-  handleChange = (e, { value }) => this.setState({ value });
-
   /**
    * [renderFields renders input Fields and takes in relevant values]
    * @param  {String} label       [Input label]
@@ -27,16 +25,38 @@ class SubmitDynamicForms extends Component {
    * @param  {String} name        [Input Name]
    * @return {Object}             [Input params Object]
    */
-  renderFields({ label, placeholder, name, input, textarea, textField }) {
+  renderFields({
+    label,
+    type,
+    placeholder,
+    name,
+    input,
+    textarea,
+    textField,
+    MobileField
+  }) {
     return (
       <div>
         {textField && (
-          <Form.Input label={label} placeholder={placeholder} {...input} />
+          <Form.Input
+            type={type}
+            label={label}
+            placeholder={placeholder}
+            {...input}
+          />
         )}
         {textarea && (
           <Form.TextArea
             label="About"
             placeholder="Tell us more about you..."
+            {...input}
+          />
+        )}
+        {MobileField && (
+          <Form.Input
+            type={type}
+            label={label}
+            placeholder={placeholder}
             {...input}
           />
         )}
@@ -162,6 +182,27 @@ class SubmitDynamicForms extends Component {
     );
   }
 
+  renderRadioBlock({
+    name,
+    label,
+    blockName,
+    input: { value, onChange, ...input }
+  }) {
+    function radioValues(value) {
+      return onChange(value);
+    }
+
+    return (
+      <div>
+        <Form.Radio
+          label={label}
+          {...input}
+          onChange={(e, { value }) => radioValues(value)}
+        />
+      </div>
+    );
+  }
+
   /**
    * [handleSignUpSubmit Form submit handler]
    * @param  {[type]} data [description]
@@ -207,6 +248,24 @@ class SubmitDynamicForms extends Component {
             textField="true"
           />
           <Field
+            name="userSignUpEmail"
+            type="email"
+            component={this.renderFields}
+            placeholder="Email"
+            required
+            textField="true"
+            label="Email"
+          />
+          <Field
+            name="userSignUpMobile"
+            component={this.renderFields}
+            placeholder="Mobile"
+            MobileField="MobileField"
+            maxlength={10}
+            label="Mobile"
+            required
+          />
+          <Field
             name="userGender"
             component={this.renderDropdown}
             placeholder="Select Gender"
@@ -216,23 +275,17 @@ class SubmitDynamicForms extends Component {
         </Form.Group>
         <Form.Group inline>
           <label>Size</label>
-          <Form.Radio
+          <Field
+            name="userSizeOptions"
+            component={this.renderRadioBlock}
+            value="small"
             label="Small"
-            value="sm"
-            checked={value === "sm"}
-            onChange={this.handleChange}
           />
-          <Form.Radio
-            label="Medium"
-            value="md"
-            checked={value === "md"}
-            onChange={this.handleChange}
-          />
-          <Form.Radio
-            label="Large"
-            value="lg"
-            checked={value === "lg"}
-            onChange={this.handleChange}
+          <Field
+            name="userSizeOptions"
+            component={this.renderRadioBlock}
+            value="large"
+            label="large"
           />
         </Form.Group>
         <Field
