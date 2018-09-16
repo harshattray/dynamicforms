@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T20:24:00+05:30
+ * @Last modified time: 2018-09-16T20:53:32+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -10,7 +10,10 @@ import {
   FETCH_DROPDOWN_VALUES_SUCCESS,
   FETCH_DROPDOWN_VALUES_ERROR,
   SHOW_MORE_FIELDS,
-  SUBMIT_FORM_DATA
+  SUBMIT_FORM_DATA,
+  FORM_SUBMISSION_ERROR,
+  INIT_FORM_SUBMISSION,
+  FORM_SUBMISSION_SUCCESS
 } from "./types";
 import qs from "qs";
 import axios from "axios";
@@ -36,7 +39,6 @@ export const fetchDropdownValues = () => async (dispatch, getState) => {
       isFetchingDropdownValues: false
     });
   } catch (e) {
-    console.log(e, "error object");
     dispatch({
       type: FETCH_DROPDOWN_VALUES_ERROR,
       payload: e
@@ -57,7 +59,6 @@ function initDropDownValuesFetch() {
 }
 
 export const showMoreFields = value => dispatch => {
-  console.log(value, "checkbox");
   dispatch({
     type: SHOW_MORE_FIELDS,
     showMultiSelect: value
@@ -65,20 +66,43 @@ export const showMoreFields = value => dispatch => {
 };
 
 /**
- * [submitFormData description]
+ * [submitFormData Form data post request action]
  * @param  {object} formData [form object]
  * @return {[type]}          [description]
  */
 
-export const submitFormData = formData => async (dispatch, getState, api) => {
+export const submitFormData = formData => async (dispatch, getState) => {
   const params = {
     formData
   };
   const post_data = qs.stringify(params);
-  // const res = await api.post("MokyAPIcomes here", post_data, config);
-  dispatch({
-    type: SUBMIT_FORM_DATA,
-    submitSuccess: true,
-    submissionObject: formData
-  });
+  try {
+    const res = await axios.post(
+      "https://reqres.in/api/users",
+      post_data,
+      config
+    );
+    dispatch({
+      type: SUBMIT_FORM_DATA,
+      submitSuccess: true,
+      submissionObject: formData
+    });
+  } catch (e) {
+    console.log(e, "form error");
+    dispatch({
+      type: FORM_SUBMISSION_ERROR,
+      payload: e
+    });
+  }
 };
+
+/**
+ * [initDropDownValuesFetch initiator action dispatch function]
+ * @return {[Object]} [description]
+ */
+
+function initFormSubmission() {
+  return {
+    type: INIT_FORM_SUBMISSION
+  };
+}

@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T15:45:46+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T16:06:31+05:30
+ * @Last modified time: 2018-09-16T20:47:48+05:30
  */
 
 /**
@@ -15,3 +15,6 @@ export const FETCH_DROPDOWN_VALUES_ERROR = "FETCH_DROPDOWN_VALUES_ERROR";
 export const FETCH_DROPDOWN_VALUES_SUCCESS = "FETCH_DROPDOWN_VALUES_SUCCESS";
 export const SHOW_MORE_FIELDS = "SHOW_MORE_FIELDS";
 export const SUBMIT_FORM_DATA = "SUBMIT_FORM_DATA";
+export const FORM_SUBMISSION_ERROR = "FORM_SUBMISSION_ERROR";
+export const INIT_FORM_SUBMISSION = "INIT_FORM_SUBMISSION";
+export const FORM_SUBMISSION_SUCCESS = "FORM_SUBMISSION_SUCCESS";

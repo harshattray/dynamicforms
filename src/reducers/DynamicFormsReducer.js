@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T16:03:13+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T17:27:53+05:30
+ * @Last modified time: 2018-09-16T20:54:30+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -10,7 +10,10 @@ import {
   FETCH_DROPDOWN_VALUES_INIT,
   FETCH_DROPDOWN_VALUES_SUCCESS,
   SHOW_MORE_FIELDS,
-  SUBMIT_FORM_DATA
+  SUBMIT_FORM_DATA,
+  FORM_SUBMISSION_ERROR,
+  INIT_FORM_SUBMISSION,
+  FORM_SUBMISSION_SUCCESS
 } from "../actions/types";
 
 const initial_state = {
@@ -49,7 +52,7 @@ export default (state = initial_state, action) => {
     case SUBMIT_FORM_DATA:
       return {
         ...state,
-        showSubmissionData: action.submissionObject,
+        showSubmissionData: action.payload,
         submitSuccess: action.submitSuccess
       };
     default:
