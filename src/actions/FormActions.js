@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-14T14:58:24+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T20:53:32+05:30
+ * @Last modified time: 2018-09-16T22:18:52+05:30
  */
 import {
   FETCH_DROPDOWN_VALUES,
@@ -87,6 +87,7 @@ export const submitFormData = formData => async (dispatch, getState) => {
       submitSuccess: true,
       submissionObject: formData
     });
+    alert("Upload Success");
   } catch (e) {
     console.log(e, "form error");
     dispatch({

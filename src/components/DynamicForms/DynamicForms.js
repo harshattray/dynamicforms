@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-13T14:45:50+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T21:44:53+05:30
+ * @Last modified time: 2018-09-16T22:17:27+05:30
  */
 import React, { Component } from "react";
 import {
@@ -27,6 +27,7 @@ import { renderSearchableMultiSelect } from "../SearchableMultiSelect/Searchable
 import { renderCheckBox } from "../renderCheckboxComponent/renderCheckBoxComponent";
 import { renderDropdown } from "../renderDropdownComponent/renderDropdownComponent";
 import { renderFields } from "../renderFieldsComponent/renderFieldsComponents";
+import { renderUploadField } from "../renderFieldsComponent/renderuploadField";
 import { validate } from "../validate";
 
 class SubmitDynamicForms extends Component {
@@ -109,7 +110,7 @@ class SubmitDynamicForms extends Component {
                 type="file"
                 uploadField="uploadField"
                 value={null}
-                component={renderFields}
+                component={renderUploadField}
               />
             </Grid.Row>
           </Form.Group>
@@ -126,7 +127,7 @@ class SubmitDynamicForms extends Component {
               textarea="true"
               component={renderFields}
               placeholder="Tell us more about you..."
-              label="About"
+              label="Enter description"
             />
           </Grid.Row>
 
@@ -184,14 +185,14 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-const afterSubmit = (result, dispatch) => dispatch(reset("userDataForm"));
+const afterSubmitdata = (result, dispatch) => dispatch(reset("userDataForm"));
 
 SubmitDynamicForms = reduxForm({
   validate,
   form: "userDataForm",
   destroyOnUnmount: false,
   fields: ["email"],
-  onSubmitSuccess: afterSubmit
+  onSubmitSuccess: afterSubmitdata
 })(SubmitDynamicForms);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmitDynamicForms);

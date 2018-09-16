@@ -2,7 +2,7 @@
  * @Author: harsha
  * @Date:   2018-09-16T18:52:03+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T21:51:01+05:30
+ * @Last modified time: 2018-09-16T22:14:53+05:30
  */
 
 import React from "react";
@@ -20,7 +20,7 @@ export const renderFields = ({
   type,
   placeholder,
   name,
-  input: { value: omitValue, ...input },
+  input,
   textarea,
   textField,
   MobileField,
@@ -41,11 +41,7 @@ export const renderFields = ({
         />
       )}
       {textarea && (
-        <Form.TextArea
-          label="About"
-          placeholder="Tell us more about you..."
-          {...input}
-        />
+        <Form.TextArea label={label} placeholder={placeholder} {...input} />
       )}
       {MobileField && (
         <Form.Input
@@ -57,7 +53,6 @@ export const renderFields = ({
           {...input}
         />
       )}
-      {uploadField && <Form.Input type={type} {...input} />}
       {touched && error && <i>{error}</i>}
     </div>
   );
