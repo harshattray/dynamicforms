@@ -38,7 +38,7 @@ Project Initialisation involves standard procedures listed below
 
 ## Dependencies
 
-* [react](https://github.com/facebook/react):
+* [react](https://github.com/facebook/react): 16.0.0
 * [redux](https://github.com/reduxjs/redux) : 3.7.2
 * [react-redux](https://github.com/reduxjs/redux) : 5.0.6
 * [redux-form](https://github.com/erikras/redux-form) : ^7.4.2
