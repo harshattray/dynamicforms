@@ -27,7 +27,8 @@ Project Initialisation involves standard procedures listed below
       npm install --save
 
   Install dev dependencies  
-   npm install --save-dev
+  
+      npm install --save-dev
 
 ## Run the project
 
