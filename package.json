@@ -7,6 +7,7 @@
     "axios": "0.16.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "lodash": "^4.17.4",
     "react": "16.0.0",
     "react-dom": "16.0.0",
@@ -15,6 +16,8 @@
     "react-redux-form": "^1.16.10",
     "react-router-config": "1.0.0-beta.4",
     "react-router-dom": "4.2.2",
+    "react-scripts": "1.1.4",
+    "react-test-renderer": "^16.5.1",
     "redux": "3.7.2",
     "redux-form": "^7.4.2",
     "redux-thunk": "2.2.0",
@@ -29,7 +32,8 @@
     "start": "webpack-dev-server --hot --inline --port 3000",
     "commit_deploy": "git add deploy -A && git commit -m \"deploy files at `date`\" -n > /dev/null 2>&1; exit 0",
     "ghpages": "git subtree split --prefix deploy/ -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages",
-    "deploy": "npm run build && npm run commit_deploy && npm run ghpages"
+    "deploy": "npm run build && npm run commit_deploy && npm run ghpages",
+    "test": "react-scripts test --env=jsdom"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

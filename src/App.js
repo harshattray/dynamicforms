@@ -2,13 +2,13 @@
  * @Author: harsha
  * @Date:   2018-09-13T13:58:38+05:30
  * @Last modified by:   harsha
- * @Last modified time: 2018-09-16T21:15:33+05:30
+ * @Last modified time: 2018-09-17T14:27:28+05:30
  */
 
 import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import "./App.css";
-import FormExampleSubcomponentControl from "./components/DynamicForms/DynamicForms";
+import SubmitDynamicForms from "./components/DynamicForms/DynamicForms";
 import { reduxForm, Field } from "redux-form";
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
           <h1 className="App-title">Dynamic Forms</h1>
         </header>
         <Container>
-          <FormExampleSubcomponentControl />
+          <SubmitDynamicForms />
         </Container>
       </div>
     );
