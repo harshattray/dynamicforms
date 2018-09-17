@@ -6,6 +6,8 @@ Built on react, redux with redux forms integration, these forms take in data fro
 
 Complete Webpack integration with babel loaders processing custom css and js modules and transpiling them.
 
+if you see a warning related to input.onChange its a semantic-ui searchable issue.
+
 Redux dev tools are still enabled in this, mapped to the store so that dispached actions can be tracked (install redux dev tools plugin [here](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en))
 
 ## Installation Instructions
@@ -49,3 +51,4 @@ Install dev dependencies
 * [axios](https://github.com/mzabriskie/axios) : 0.16.2
 * [webpack](https://github.com/webpack/webpack) : 3.5.6
 * [enzyme](https://github.com/airbnb/enzyme) : ^3.6.0
+* [jest](https://github.com/facebook/jest) : ^23.6.0
