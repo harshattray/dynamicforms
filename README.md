@@ -16,18 +16,16 @@ Redux dev tools are still enabled in this, mapped to the store so that dispached
 
 Project Initialisation involves standard procedures listed below
 
-* **Project initialisation:**
-
-  Clone the repo
+Clone the repo
 
       git clone https://github.com/harshattray/dynamicforms.git
 
-  Install npm modules
+Install npm modules
 
       npm install --save
 
-  Install dev dependencies  
-  
+Install dev dependencies
+
       npm install --save-dev
 
 ## Run the project
@@ -35,6 +33,10 @@ Project Initialisation involves standard procedures listed below
       npm start - fires up the webpack dev server with hot module replacement on port 3000
       npm run build - runs the production setup with a clean purge
       npm run  deploy - runs build and commit deploy, creates a githubpages branch and deploys to github pages (make sure all your api calls are https)
+
+## Run the Test Cases
+
+      npm run test - runs the test cases
 
 ## Dependencies
 
@@ -46,3 +48,4 @@ Project Initialisation involves standard procedures listed below
 * [semantic-ui-react](https://github.com/Semantic-Org/Semantic-UI-React) :^0.82.5
 * [axios](https://github.com/mzabriskie/axios) : 0.16.2
 * [webpack](https://github.com/webpack/webpack) : 3.5.6
+* [enzyme](https://github.com/airbnb/enzyme) : ^3.6.0
