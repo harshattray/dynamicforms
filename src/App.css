@@ -1,3 +1,16 @@
+/**
+ * @Author: harsha
+ * @Date:   2018-09-20T11:27:58+05:30
+ * @Last modified by:   harsha
+ * @Last modified time: 2018-09-20T12:30:01+05:30
+ */
+
+body {
+  font-family: 'Poppins', sans-serif !important;
+}
+.pull-left {
+  text-align: left;
+}
 .App {
   text-align: center;
 }
@@ -15,7 +28,10 @@
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 3em;
+  text-align: left;
+  margin-top: 50px !important;
+  font-weight: 300;
 }
 
 .App-intro {
@@ -25,4 +41,40 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+.form {
+  margin-top: 30px;
+}
+.field label {
+  text-align: left;
+}
+
+.fields .field {
+  margin-right: 20px !important;
+}
+.fields .field .input input, .fields .field textarea {
+  width: 300px !important;
+}
+.field .button {
+  width: 300px !important;
+  margin-bottom: 50px !important;
+}
+.ui.form .field>.selection.dropdown {
+  width: 300px !important;
+}
+.fields i {
+  color: red;
+  font-size: 12px;
+  float: left;
+}
+.fields i.dropdown {
+  color: black;
+}
+.hidden-fields {
+  width: 100%;
+  margin-top: 20px;
+}
+.hidden-fields .field>.selection.multiple.dropdown {
+  width: 620px !important;
+  margin-top: 20px;
 }
